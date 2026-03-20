@@ -15,10 +15,11 @@ from qgis import processing
 from qgis.PyQt.QtCore import QVariant
 import urllib.request
 import urllib.parse
+import urllib.error
 import json
 
 class SDASoilFetcher(QgsProcessingAlgorithm):
-    INPUT_AA = 'INPUT_AA'
+    INPUT_AOI = 'INPUT_AOI'
     OUTPUT_SOILS = 'OUTPUT_SOILS'
 
     def name(self): return 'sda_soil_fetcher'
@@ -28,29 +29,30 @@ class SDASoilFetcher(QgsProcessingAlgorithm):
     def createInstance(self): return SDASoilFetcher()
 
     def initAlgorithm(self, config=None):
-        self.addParameter(QgsProcessingParameterFeatureSource(self.INPUT_AA, 'Assessment Area (AA) Polygon'))
+        self.addParameter(QgsProcessingParameterFeatureSource(self.INPUT_AOI, 'Area of Interest (AOI) Polygon'))
         self.addParameter(QgsProcessingParameterVectorDestination(self.OUTPUT_SOILS, 'Output Clipped Soils'))
 
     def processAlgorithm(self, parameters, context, feedback):
-        aa_source = self.parameterAsSource(parameters, self.INPUT_AA, context)
+        aoi_source = self.parameterAsSource(parameters, self.INPUT_AOI, context)
         output_path = self.parameterAsOutputLayer(parameters, self.OUTPUT_SOILS, context)
 
         # 1. Coordinate Prep
-        crs_aa = aa_source.sourceCrs()
+        crs_aoi = aoi_source.sourceCrs()
         crs_wgs84 = QgsCoordinateReferenceSystem("EPSG:4326")
-        tr_to_wgs = QgsCoordinateTransform(crs_aa, crs_wgs84, context.project())
-        tr_to_aa = QgsCoordinateTransform(crs_wgs84, crs_aa, context.project())
+        tr_to_wgs = QgsCoordinateTransform(crs_aoi, crs_wgs84, context.project())
+        tr_to_aoi = QgsCoordinateTransform(crs_wgs84, crs_aoi, context.project())
 
-        # Get AA Geometry
-        aa_features = list(aa_source.getFeatures())
-        aa_geom_engine = aa_features[0].geometry()
+        # Get AOI Geometry
+        aoi_features = list(aoi_source.getFeatures())
+        aoi_geom_engine = aoi_features[0].geometry()
         
         # THE FIX: Create a simple Bounding Box for the API request to avoid USDA character limits
-        bbox_geom = QgsGeometry.fromRect(aa_geom_engine.boundingBox())
+        bbox_geom = QgsGeometry.fromRect(aoi_geom_engine.boundingBox())
 
         # WGS84 Conversion for Query (using the simple box)
         bbox_geom.transform(tr_to_wgs)
-        wkt_query = bbox_geom.asWkt()
+        # Round coordinates to 6 decimal places to keep the query string short and clean
+        wkt_query = bbox_geom.asWkt(6)
 
         feedback.pushInfo("Contacting USDA Soil Data Access using bounding box...")
 
@@ -70,16 +72,25 @@ class SDASoilFetcher(QgsProcessingAlgorithm):
             WHERE P.mupolygongeo.STIntersects(geometry::STGeomFromText('{wkt_query}', 4326)) = 1
         """
 
-        url = "https://sdmdataaccess.nrcs.usda.gov/Tabular/post.rest"
+        url = "https://SDMDataAccess.sc.egov.usda.gov/Tabular/post.rest"
         payload = {"query": sql, "format": "JSON+COLUMNNAME"}
         data = json.dumps(payload).encode('utf-8')
         
+        headers = {
+            'Content-Type': 'application/json',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) QGIS/3.44'
+        }
+        
         try:
-            req = urllib.request.Request(url, data=data, headers={'Content-Type': 'application/json'})
+            req = urllib.request.Request(url, data=data, headers=headers)
             with urllib.request.urlopen(req) as response:
                 result = json.load(response)
+        except urllib.error.HTTPError as e:
+            error_body = e.read().decode('utf-8')
+            feedback.reportError(f"API Error {e.code}: {e.reason}\nServer Response: {error_body}", fatalError=True)
+            return {}
         except Exception as e:
-            feedback.reportError(f"API Error: {e}", fatalError=True)
+            feedback.reportError(f"API Connection Error: {e}", fatalError=True)
             return {}
 
         # THE FIX: Expose the actual USDA SQL error if it fails
@@ -91,18 +102,18 @@ class SDASoilFetcher(QgsProcessingAlgorithm):
         rows = result['Table'][1:]
         
         # 3. Create MEMORY Layer
-        uri = f"MultiPolygon?crs={crs_aa.authid()}"
+        uri = f"MultiPolygon?crs={crs_aoi.authid()}"
         mem_layer = QgsVectorLayer(uri, "Temp_Soils", "memory")
         mem_prov = mem_layer.dataProvider()
         
         # Define Attributes
         mem_prov.addAttributes([
-            QgsField("musym", QVariant.String),
-            QgsField("muname", QVariant.String),
-            QgsField("hyd_group", QVariant.String),
-            QgsField("flood_freq", QVariant.String),
-            QgsField("hydric_pct", QVariant.String),
-            QgsField("drainage", QVariant.String)
+            QgsField("musym", QVariant.Type.String),
+            QgsField("muname", QVariant.Type.String),
+            QgsField("hyd_group", QVariant.Type.String),
+            QgsField("flood_freq", QVariant.Type.String),
+            QgsField("hydric_pct", QVariant.Type.String),
+            QgsField("drainage", QVariant.Type.String)
         ])
         mem_layer.updateFields()
 
@@ -112,10 +123,10 @@ class SDASoilFetcher(QgsProcessingAlgorithm):
         for row in rows:
             wkt_raw = row[0]
             soil_geom = QgsGeometry.fromWkt(wkt_raw)
-            soil_geom.transform(tr_to_aa)
+            soil_geom.transform(tr_to_aoi)
             
-            # Clip back down to the complex AA Polygon
-            clipped_geom = soil_geom.intersection(aa_geom_engine)
+            # Clip back down to the complex AOI Polygon
+            clipped_geom = soil_geom.intersection(aoi_geom_engine)
             
             if not clipped_geom.isEmpty():
                 if not clipped_geom.isMultipart():

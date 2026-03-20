@@ -13,7 +13,7 @@ class GeologyFetcher(QgsProcessingAlgorithm):
         self.addParameter(
             QgsProcessingParameterFeatureSource(
                 self.INPUT,
-                'Assessment Area (AOI)',
+                'Area of Interest (AOI)',
                 [QgsProcessing.TypeVectorPolygon]
             )
         )
