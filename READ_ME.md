@@ -16,15 +16,15 @@ This tool is designed to streamline the collection of field data associated with
 
 ###### CORE CAPABILITIES:
 
-\a. Utilizes publicly available geospatial data to auto-fill key specimen attributes.
+a\. Utilizes publicly available geospatial data to auto-fill key specimen attributes.
 
-\b. Enforces consistent and uniform formatting in metadata recording.
+b\. Enforces consistent and uniform formatting in metadata recording.
 
-\c. Incorporates floristic resources for rapid species name lookups.
+c\. Incorporates floristic resources for rapid species name lookups.
 
-\d. Integrates native photo attachments for specific plant observations.
+d\. Integrates native photo attachments for specific plant observations.
 
-\e. Generates automated specimen labels based on field-collected attributes (Work in Progress).
+e\. Generates automated specimen labels based on field-collected attributes (Work in Progress).
 
 
 
@@ -170,15 +170,15 @@ The tool will automatically fetch the DEM, calculate slope and aspect, and clip 
 
 THE NAMING CONTRACT: When prompted to save the model outputs, you must save them into your project directory and name them EXACTLY as follows (all lowercase, no spaces). If they are named differently, the mobile data-entry form will not be able to auto-fill your data in the field!
 
-\a. DEM: "site\_dem"
+a\. DEM: "site\_dem"
 
-\b. Geology: "site\_geology"
+b\. Geology: "site\_geology"
 
-\c. Soils: "site\_soils"
+c\. Soils: "site\_soils"
 
-\d. Slope: "site\_slope"
+d\. Slope: "site\_slope"
 
-\e. Aspect: "site\_aspect"
+e\. Aspect: "site\_aspect"
 
 
 
