@@ -70,9 +70,7 @@ You need a local copy of the qgis\_tools repository stored in a permanent locati
 
 
 
-**Option A (Using Git)**: Open your terminal or command prompt and clone the repository:
-
-*git clone https://github.com/YOUR-USERNAME/qgis\_tools.git*
+**Option A (Using GitHub Desktop)**: Open GitHub desktop and clone the repository: *(https://github.com/zackmeuth-KYDOW/qgis_tools.git)*
 
 **Option B (Direct Download)**: Click the green "Code" button on the GitHub repository page, select "Download ZIP", and extract the folder to your computer.
 
