@@ -8,7 +8,7 @@ Welcome to the automated Plant Collection Tool!
 
 This tool is designed to streamline the collection of field data associated with plant specimens. Think of this tool not as a single piece of software, but as a suite of integrated tools that work together to automate your GIS workflow.
 
-###### CORE CAPABILITIES:
+###### Core Capabilities:
 
 a\. Utilizes publicly available geospatial data to auto-fill key specimen attributes.
 
@@ -20,7 +20,7 @@ d\. Integrates native photo attachments for specific plant observations.
 
 e\. Generates automated specimen labels based on field-collected attributes (Work in Progress).
 
-###### WHAT'S IN THE FOLDER?
+###### What's In The Folder?
 
 1\. A Master Database: Plant\_Collection\_Tool.gpkg (stores your plant data).
 
