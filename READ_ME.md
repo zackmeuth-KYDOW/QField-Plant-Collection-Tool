@@ -4,15 +4,9 @@
 
 ==========================================================================
 
-
-
-Welcome to the automated Plant Collection Tool! 
-
-
+Welcome to the automated Plant Collection Tool!
 
 This tool is designed to streamline the collection of field data associated with plant specimens. Think of this tool not as a single piece of software, but as a suite of integrated tools that work together to automate your GIS workflow.
-
-
 
 ###### CORE CAPABILITIES:
 
@@ -26,8 +20,6 @@ d\. Integrates native photo attachments for specific plant observations.
 
 e\. Generates automated specimen labels based on field-collected attributes (Work in Progress).
 
-
-
 ###### WHAT'S IN THE FOLDER?
 
 1\. A Master Database: Plant\_Collection\_Tool.gpkg (stores your plant data).
@@ -37,8 +29,6 @@ e\. Generates automated specimen labels based on field-collected attributes (Wor
 3\. Custom Python Scripts: Automatically downloads elevation, soils, and geology data from state and federal servers.
 
 4\. A QGIS Model: The "Easy Button" flowchart that runs the scripts and generates slope/aspect layers automatically.
-
-
 
 \------------------------------------------------------
 
@@ -52,8 +42,6 @@ Save this entire "Plant Collection Tool v1.0.0" folder locally to your computer'
 
 \* BEST PRACTICE: Keep this original folder as an untouched "Master" copy. Copy and paste the entire folder into your new project directory whenever you start a new site assessment.
 
-
-
 \------------------------------------------------------
 
 ##### PHASE 1: ONE-TIME INSTALLATION
@@ -62,19 +50,13 @@ Save this entire "Plant Collection Tool v1.0.0" folder locally to your computer'
 
 Before using the tool for the first time, you must link your local QGIS environment to the custom scripts and models provided in the qgis\_tools repository. By pointing QGIS directly to these folders, any future updates synced from GitHub will automatically populate in your Processing Toolbox.
 
-
-
 ###### **Step 1:** Sync the Repository to Your Computer
 
 You need a local copy of the qgis\_tools repository stored in a permanent location on your hard drive.
 
-
-
 **Option A (Using GitHub Desktop)**: Open GitHub desktop and clone the repository: *(https://github.com/zackmeuth-KYDOW/qgis_tools.git)*
 
 **Option B (Direct Download)**: Click the green "Code" button on the GitHub repository page, select "Download ZIP", and extract the folder to your computer.
-
-
 
 ###### **Step 2:** Point QGIS to the Scripts
 
@@ -92,8 +74,6 @@ You need a local copy of the qgis\_tools repository stored in a permanent locati
 
 7\. Click **OK**.
 
-
-
 ###### **Step 3:** Point QGIS to the Models
 
 1\. Still in the Processing tab of the Options window, expand the **Models** dropdown menu.
@@ -106,11 +86,7 @@ You need a local copy of the qgis\_tools repository stored in a permanent locati
 
 5\. Click **OK** to close the path window, then click **OK** again to apply all changes and close the Options menu.
 
-
-
 *Note: You may need to restart QGIS or refresh your Processing Toolbox for the scripts and models to appear.*
-
-
 
 \------------------------------------------------------
 
@@ -120,23 +96,17 @@ You need a local copy of the qgis\_tools repository stored in a permanent locati
 
 Follow these exact steps whenever you are ready to start a new collection project.
 
-
-
 ###### **Step 1:** Set Up The Project
 
 Open a new or existing QGIS project. 
 
 CRITICAL: This project MUST be set to CRS EPSG:3089 (NAD83 / Kentucky Single Zone ftUS). The automated fetchers will fail if the map is in a different coordinate system. ([https://epsg.io/3089](https://epsg.io/3089))
 
-
-
 ###### **Step 2:** Load The Tool
 
 Drag and drop the "*Plant\_Collection\_Tool\_Loader.qlr*" file directly from your file browser into the QGIS map canvas. 
 
 *Note: This acts as an instruction manual, automatically loading the database, grouping layers, and applying the custom data-entry forms.*
-
-
 
 ###### **Step 3:** Draw Your Assessment Area (AOI)
 
@@ -148,8 +118,6 @@ You need to define the boundary of your site so the tools know where to fetch da
 
 3\. Draw a polygon that encompasses your collection area. 
 
-
-
 ###### **Step 4:** Run The Topography Model
 
 1\. In your **Processing Toolbox**, go to **Models** -> **Site Tools**.
@@ -157,8 +125,6 @@ You need to define the boundary of your site so the tools know where to fetch da
 2\. Double-click "**Generate Plant Tool Topo**".
 
 3\. Select your drawn AOI polygon and hit **Run**. 
-
-
 
 ###### **Step 5:** Name The Outputs (CRITICAL STEP)
 
@@ -178,11 +144,7 @@ d\. Slope: "site\_slope"
 
 e\. Aspect: "site\_aspect"
 
-
-
 Once these layers are loaded, you are ready to collect data. When you drop a specimen point, the form will automatically read these background layers and fill in the topography and habitat data for you.
-
-
 
 \------------------------------------------------------
 
@@ -194,8 +156,6 @@ When your desktop preparation is complete, follow the official QField documentat
 
 https://docs.qfield.org/get-started/tutorials/get-started-qfs/
 
-
-
 \------------------------------------------------------
 
 ##### LIMITATIONS \& MANUAL WORKAROUNDS
@@ -204,13 +164,6 @@ https://docs.qfield.org/get-started/tutorials/get-started-qfs/
 
 This tool is optimized for small-to-medium-sized sites. 
 
-
-
 Because the Python scripts reach out to state and federal servers to download live data, there are strict size limits enforced by those agencies. This tool cannot automatically grab data for areas larger than \~50 acres. If the tool throws an error during the data download phase, your AOI polygon is likely too large.
 
-
-
 \* THE MANUAL WORKAROUND: This limitation \*only\* applies to the automated download scripts. It does not limit the field collection forms. If you are working on a massive site (>50 acres), simply bypass the "Easy Button" model. Manually download your DEM, soils, and geology layers, and manually run the QGIS Slope and Aspect tools. As long as you name the final layers exactly according to the Naming Contract in Phase 2, Step 5, QField will still auto-fill your forms perfectly.
-
-
-
