@@ -1,6 +1,6 @@
 ==========================================================================
 
-# PLANT COLLECTION TOOL v1.0.0 - DEPLOYMENT GUIDE
+# PLANT COLLECTION TOOL v1.0.1 - DEPLOYMENT GUIDE
 
 ==========================================================================
 
@@ -36,11 +36,11 @@ e\. Generates automated specimen labels based on field-collected attributes (Wor
 
 \------------------------------------------------------
 
-Save this entire "Plant Collection Tool v1.0.0" folder locally to your computer's hard drive. 
+Save this entire "Plant Collection Tool vx.x.x" folder locally to your computer's hard drive. 
 
-\* THE GOLDEN RULE: Always keep the contents of this folder together. You can move the entire folder into a specific project directory, but the files must remain next to each other to function. 
+THE GOLDEN RULE: Always keep the contents of this folder together. You can move the entire folder into a specific project directory, but the files must remain next to each other to function. 
 
-\* BEST PRACTICE: Keep this original folder as an untouched "Master" copy. Copy and paste the entire folder into your new project directory whenever you start a new site assessment.
+BEST PRACTICE: Keep this original folder as an untouched "Master" copy. Copy and paste the entire folder into your new project directory whenever you start a new site assessment.
 
 \------------------------------------------------------
 
@@ -54,9 +54,11 @@ Before using the tool for the first time, you must link your local QGIS environm
 
 You need a local copy of the qgis\_tools repository stored in a permanent location on your hard drive.
 
-**Option A (Using GitHub Desktop)**: Open GitHub desktop and clone the repository: *(https://github.com/zackmeuth-KYDOW/qgis_tools.git)*
+*(https://github.com/zackmeuth-KYDOW/qgis_tools.git)*
 
-**Option B (Direct Download)**: Click the green "Code" button on the GitHub repository page, select "Download ZIP", and extract the folder to your computer.
+**Option A (Using GitHub Desktop)**: Open GitHub desktop and clone the repository above.
+
+**Option B (Direct Download)**: Click the green "Code" button on the GitHub repository page listed above, select "Download ZIP", and extract the folder to your computer.
 
 ###### **Step 2:** Point QGIS to the Scripts
 
@@ -164,4 +166,4 @@ This tool is optimized for small-to-medium-sized sites.
 
 Because the Python scripts reach out to state and federal servers to download live data, there are strict size limits enforced by those agencies. This tool cannot automatically grab data for areas larger than \~50 acres. If the tool throws an error during the data download phase, your AOI polygon is likely too large.
 
-\* THE MANUAL WORKAROUND: This limitation \*only\* applies to the automated download scripts. It does not limit the field collection forms. If you are working on a massive site (>50 acres), simply bypass the "Easy Button" model. Manually download your DEM, soils, and geology layers, and manually run the QGIS Slope and Aspect tools. As long as you name the final layers exactly according to the Naming Contract in Phase 2, Step 5, QField will still auto-fill your forms perfectly.
+THE MANUAL WORKAROUND: This limitation \*only\* applies to the automated download scripts. It does not limit the field collection forms. If you are working on a massive site (>50 acres), simply bypass the "Easy Button" model. Manually download your DEM, soils, and geology layers, and manually run the QGIS Slope and Aspect tools. As long as you name the final layers exactly according to the Naming Contract in Phase 2, Step 5, QField will still auto-fill your forms perfectly.
