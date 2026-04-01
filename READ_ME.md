@@ -124,7 +124,7 @@ Follow these exact steps whenever you are ready to start a new collection projec
 
 
 
-###### **Step 1:** SET UP THE PROJECT
+###### **Step 1:** Set Up The Project
 
 Open a new or existing QGIS project. 
 
@@ -132,7 +132,7 @@ CRITICAL: This project MUST be set to CRS EPSG:3089 (NAD83 / Kentucky Single Zon
 
 
 
-###### **Step 2:** LOAD THE TOOL
+###### **Step 2:** Load The Tool
 
 Drag and drop the "*Plant\_Collection\_Tool\_Loader.qlr*" file directly from your file browser into the QGIS map canvas. 
 
@@ -140,7 +140,7 @@ Drag and drop the "*Plant\_Collection\_Tool\_Loader.qlr*" file directly from you
 
 
 
-###### **Step 3:** DRAW YOUR ASSESSMENT AREA (AOI)
+###### **Step 3:** Draw Your Assessment Area (AOI)
 
 You need to define the boundary of your site so the tools know where to fetch data.
 
@@ -152,7 +152,7 @@ You need to define the boundary of your site so the tools know where to fetch da
 
 
 
-###### **Step 4:** RUN THE TOPOGRAPHY MODEL
+###### **Step 4:** Run The Topography Model
 
 1\. In your **Processing Toolbox**, go to **Models** -> **Site Tools**.
 
@@ -162,7 +162,7 @@ You need to define the boundary of your site so the tools know where to fetch da
 
 
 
-###### **Step 5:** NAME THE OUTPUTS (CRITICAL STEP)
+###### **Step 5:** Name The Outputs (CRITICAL STEP)
 
 The tool will automatically fetch the DEM, calculate slope and aspect, and clip the precise geology and soil polygons for your site. 
 
