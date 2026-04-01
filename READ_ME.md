@@ -16,15 +16,15 @@ This tool is designed to streamline the collection of field data associated with
 
 ###### CORE CAPABILITIES:
 
-\* Utilizes publicly available geospatial data to auto-fill key specimen attributes.
+\a. Utilizes publicly available geospatial data to auto-fill key specimen attributes.
 
-\* Enforces consistent and uniform formatting in metadata recording.
+\b. Enforces consistent and uniform formatting in metadata recording.
 
-\* Incorporates floristic resources for rapid species name lookups.
+\c. Incorporates floristic resources for rapid species name lookups.
 
-\* Integrates native photo attachments for specific plant observations.
+\d. Integrates native photo attachments for specific plant observations.
 
-\* Generates automated specimen labels based on field-collected attributes (Work in Progress).
+\e. Generates automated specimen labels based on field-collected attributes (Work in Progress).
 
 
 
@@ -80,7 +80,7 @@ You need a local copy of the qgis\_tools repository stored in a permanent locati
 
 ###### **Step 2:** Point QGIS to the Scripts
 
-1. Open a new or existing QGIS project.
+1\. Open a new or existing QGIS project.
 
 2\. From the top menu bar, navigate to **Settings -> Options**.
 
@@ -98,7 +98,7 @@ You need a local copy of the qgis\_tools repository stored in a permanent locati
 
 ###### **Step 3:** Point QGIS to the Models
 
-1. Still in the Processing tab of the Options window, expand the **Models** dropdown menu.
+1\. Still in the Processing tab of the Options window, expand the **Models** dropdown menu.
 
 2\. Double-click on **Models folders**.
 
@@ -144,7 +144,7 @@ Drag and drop the "*Plant\_Collection\_Tool\_Loader.qlr*" file directly from you
 
 You need to define the boundary of your site so the tools know where to fetch data.
 
-1. Go to **Layer** -> **Create Layer** -> **New GeoPackage Layer**...
+1\. Go to **Layer** -> **Create Layer** -> **New GeoPackage Layer**...
 
 2\. Set Geometry Type to "**Polygon**".
 
@@ -154,7 +154,7 @@ You need to define the boundary of your site so the tools know where to fetch da
 
 ###### **Step 4:** RUN THE TOPOGRAPHY MODEL
 
-1. In your **Processing Toolbox**, go to **Models** -> **Site Tools**.
+1\. In your **Processing Toolbox**, go to **Models** -> **Site Tools**.
 
 2\. Double-click "**Generate Plant Tool Topo**".
 
@@ -170,15 +170,15 @@ The tool will automatically fetch the DEM, calculate slope and aspect, and clip 
 
 THE NAMING CONTRACT: When prompted to save the model outputs, you must save them into your project directory and name them EXACTLY as follows (all lowercase, no spaces). If they are named differently, the mobile data-entry form will not be able to auto-fill your data in the field!
 
-a. DEM: "site\_dem"
+\a. DEM: "site\_dem"
 
-b. Geology: "site\_geology"
+\b. Geology: "site\_geology"
 
-c. Soils: "site\_soils"
+\c. Soils: "site\_soils"
 
-d. Slope: "site\_slope"
+\d. Slope: "site\_slope"
 
-e. Aspect: "site\_aspect"
+\e. Aspect: "site\_aspect"
 
 
 
