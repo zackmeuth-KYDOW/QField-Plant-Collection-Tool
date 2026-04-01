@@ -100,8 +100,6 @@ Follow these exact steps whenever you are ready to start a new collection projec
 
 Open a new or existing QGIS project. 
 
-CRITICAL: This project MUST be set to CRS EPSG:3089 (NAD83 / Kentucky Single Zone ftUS). The automated fetchers will fail if the map is in a different coordinate system. ([https://epsg.io/3089](https://epsg.io/3089))
-
 ###### **Step 2:** Load The Tool
 
 Drag and drop the "*Plant\_Collection\_Tool\_Loader.qlr*" file directly from your file browser into the QGIS map canvas. 
